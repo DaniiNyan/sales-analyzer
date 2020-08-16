@@ -1,8 +1,6 @@
 package com.daniinyan.analyzer.service;
 
-import java.io.FileInputStream;
 import java.io.IOException;
-import java.io.InputStream;
 import java.nio.file.FileSystems;
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -10,15 +8,17 @@ import java.nio.file.StandardWatchEventKinds;
 import java.nio.file.WatchEvent;
 import java.nio.file.WatchKey;
 import java.nio.file.WatchService;
-import java.util.Properties;
 
 public class FolderWatcher extends Thread {
 
-  private static final String PATH_TO_PROPERTIES = "src/main/resources/application.properties";
-  public String pathToWatch;
+  private String pathToWatch;
+  private DataService dataService;
+  // todo: add logger
+
 
   public FolderWatcher() {
-    getPathToWatchFromPropertiesFile();
+    pathToWatch = PropertiesHelper.getPathToData();
+    dataService = new DataService();
   }
 
   @Override
@@ -47,22 +47,12 @@ public class FolderWatcher extends Thread {
       WatchKey key;
       while ((key = watchService.take()) != null) {
         for (WatchEvent<?> event : key.pollEvents()) {
-          System.out.println("FOLDER MODIFIED: " + event.kind());
+          dataService.updateReport();
         }
         key.reset();
       }
 
     } catch (IOException | InterruptedException e) {
-      System.out.println("Error: " + e.getMessage());
-    }
-  }
-
-  private void getPathToWatchFromPropertiesFile() {
-    try (InputStream input = new FileInputStream(PATH_TO_PROPERTIES)) {
-      Properties props = new Properties();
-      props.load(input);
-      pathToWatch = props.getProperty("watcher.path");
-    } catch (IOException e) {
       System.out.println("Error: " + e.getMessage());
     }
   }
