@@ -1,6 +1,8 @@
 package com.daniinyan.analyzer.service;
 
+import java.io.FileInputStream;
 import java.io.IOException;
+import java.io.InputStream;
 import java.nio.file.FileSystems;
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -8,13 +10,15 @@ import java.nio.file.StandardWatchEventKinds;
 import java.nio.file.WatchEvent;
 import java.nio.file.WatchKey;
 import java.nio.file.WatchService;
+import java.util.Properties;
 
 public class FolderWatcher extends Thread {
 
+  private static final String PATH_TO_PROPERTIES = "src/main/resources/application.properties";
   public String pathToWatch;
 
-  public FolderWatcher(String pathToWatch) {
-    this.pathToWatch = pathToWatch;
+  public FolderWatcher() {
+    getPathToWatchFromPropertiesFile();
   }
 
   @Override
@@ -49,6 +53,16 @@ public class FolderWatcher extends Thread {
       }
 
     } catch (IOException | InterruptedException e) {
+      System.out.println("Error: " + e.getMessage());
+    }
+  }
+
+  private void getPathToWatchFromPropertiesFile() {
+    try (InputStream input = new FileInputStream(PATH_TO_PROPERTIES)) {
+      Properties props = new Properties();
+      props.load(input);
+      pathToWatch = props.getProperty("watcher.path");
+    } catch (IOException e) {
       System.out.println("Error: " + e.getMessage());
     }
   }
