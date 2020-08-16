@@ -30,26 +30,26 @@ public class DataService {
   }
 
   public void updateReport() {
-    setTotalCustomers();
-//      setTotalSellers();
+    setTotalByFieldName(TOTAL_CUSTOMERS_FIELD, CUSTOMER_ID);
+    setTotalByFieldName(TOTAL_SELLERS_FIELD, SALESMAN_ID);
 //      setMostExpensiveSale();
 //      setWorstSalesman();
   }
 
-  private void setTotalCustomers() {
-    String totalCustomers = String.valueOf(countCustomers());
-    updateReportField(TOTAL_CUSTOMERS_FIELD, totalCustomers);
+  private void setTotalByFieldName(String fieldName, String dataId) {
+    String totalCount = String.valueOf(countById(dataId));
+    updateReportField(fieldName, totalCount);
   }
 
   private void updateReportField(String fieldName, String value) {
     filesDAO.updateReportField(fieldName, value);
   }
 
-  private long countCustomers() {
+  private long countById(String dataId) {
     return filesDAO
         .getData()
         .stream()
-        .filter(data -> dataMapper.toId(data).equals(CUSTOMER_ID))
+        .filter(data -> dataMapper.toId(data).equals(dataId))
         .count();
   }
 }

@@ -11,9 +11,6 @@ import java.util.Arrays;
 import java.util.List;
 import org.junit.Before;
 import org.junit.Test;
-import org.mockito.InjectMocks;
-import org.mockito.Mock;
-import org.mockito.MockitoAnnotations;
 
 public class DataServiceTest {
 
@@ -35,7 +32,7 @@ public class DataServiceTest {
   }
 
   @Test
-  public void shouldCalculateTotalCustomersField() {
+  public void shouldCalculateAndSetTotalCustomersField() {
     when(filesDAO.getData()).thenReturn(getSampleData());
     doNothing().when(filesDAO).updateReportField(anyString(), anyString());
 
@@ -43,6 +40,17 @@ public class DataServiceTest {
 
     verify(filesDAO)
         .updateReportField(TOTAL_CUSTOMERS_FIELD, "2");
+  }
+
+  @Test
+  public void shouldCalculateAndSetTotalSellersField() {
+    when(filesDAO.getData()).thenReturn(getSampleData());
+    doNothing().when(filesDAO).updateReportField(anyString(), anyString());
+
+    dataService.updateReport();
+
+    verify(filesDAO)
+        .updateReportField(TOTAL_SELLERS_FIELD, "3");
   }
 
   private List<String> getSampleData() {
