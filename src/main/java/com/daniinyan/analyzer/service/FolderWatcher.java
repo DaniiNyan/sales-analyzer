@@ -11,7 +11,12 @@ import java.nio.file.WatchService;
 
 public class FolderWatcher extends Thread {
 
-  public static final String PATH_TO_WATCH = "data/in";
+  public String pathToWatch;
+
+  public FolderWatcher(String pathToWatch) {
+    System.out.println(pathToWatch);
+    this.pathToWatch = pathToWatch;
+  }
 
   @Override
   public void run() {
@@ -30,7 +35,7 @@ public class FolderWatcher extends Thread {
     try {
       WatchService watchService = FileSystems.getDefault().newWatchService();
 
-      Path path = Paths.get(PATH_TO_WATCH);
+      Path path = Paths.get(pathToWatch);
       path.register(watchService,
           StandardWatchEventKinds.ENTRY_CREATE,
           StandardWatchEventKinds.ENTRY_DELETE,
