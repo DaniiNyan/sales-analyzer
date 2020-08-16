@@ -1,5 +1,6 @@
 package com.daniinyan.analyzer.service;
 
+import static org.mockito.ArgumentMatchers.anyList;
 import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.Mockito.doNothing;
 import static org.mockito.Mockito.mock;
@@ -19,7 +20,7 @@ public class DataServiceTest {
   public static final String SALE_ID = "003";
   public static final String TOTAL_CUSTOMERS_FIELD = "total_customers=";
   public static final String TOTAL_SELLERS_FIELD = "total_sellers=";
-  public static final String MOST_EXPENSIVE_SALE_FIELD = "most_expensive_sale=";
+  public static final String MOST_EXPENSIVE_SALE_FIELD = "most_expensive_sale_id=";
   public static final String WORST_SALESMAN_FIELD = "worst_salesman=";
 
   private FilesDAO filesDAO;
@@ -32,7 +33,7 @@ public class DataServiceTest {
   }
 
   @Test
-  public void shouldCalculateAndSetTotalCustomersField() {
+  public void shouldCalculateReportFields() {
     when(filesDAO.getData()).thenReturn(getSampleData());
     doNothing().when(filesDAO).updateReportField(anyString(), anyString());
 
@@ -40,18 +41,14 @@ public class DataServiceTest {
 
     verify(filesDAO)
         .updateReportField(TOTAL_CUSTOMERS_FIELD, "2");
-  }
-
-  @Test
-  public void shouldCalculateAndSetTotalSellersField() {
-    when(filesDAO.getData()).thenReturn(getSampleData());
-    doNothing().when(filesDAO).updateReportField(anyString(), anyString());
-
-    dataService.updateReport();
 
     verify(filesDAO)
         .updateReportField(TOTAL_SELLERS_FIELD, "3");
+
+    verify(filesDAO)
+        .updateReportField(MOST_EXPENSIVE_SALE_FIELD, "02");
   }
+
 
   private List<String> getSampleData() {
     return Arrays.asList(
