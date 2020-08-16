@@ -2,6 +2,7 @@ package com.daniinyan.analyzer.service;
 
 import com.daniinyan.analyzer.domain.Item;
 import com.daniinyan.analyzer.domain.Sale;
+import com.daniinyan.analyzer.domain.Seller;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -21,7 +22,7 @@ public class DataMapper {
     Sale sale = new Sale();
     sale.setId(splitData[1]);
     sale.setItems(toItems(splitData[2]));
-    sale.setSalesmanName(splitData[3]);
+    sale.setSellerName(splitData[3]);
 
     return sale;
   }
@@ -40,6 +41,17 @@ public class DataMapper {
       items.add(item);
     }
     return items;
+  }
+
+  public Seller toSeller(String data) {
+    String[] splitData = data.split(getDelimiter(data));
+
+    Seller seller = new Seller();
+    seller.setCpf(splitData[1]);
+    seller.setName(splitData[2]);
+    seller.setSalary(Double.parseDouble(splitData[3]));
+
+    return seller;
   }
 
   private String getDelimiter(String data) {

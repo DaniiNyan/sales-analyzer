@@ -4,6 +4,7 @@ import static org.junit.Assert.assertEquals;
 
 import com.daniinyan.analyzer.domain.Item;
 import com.daniinyan.analyzer.domain.Sale;
+import com.daniinyan.analyzer.domain.Seller;
 import java.util.List;
 import org.junit.Before;
 import org.junit.Test;
@@ -19,11 +20,11 @@ public class DataMapperTest {
 
   @Test
   public void shouldMapToId() {
-    String salesmanData = "001ç1234567891234çDianaç3800";
+    String sellerData = "001ç1234567891234çDianaç3800";
     String customerData = "002ç2345675434544345çJose da SilvaçRural";
     String saleData = "003ç01ç[1-10-2.5,2-10-1.50,3-15-100]çDiana";
 
-    assertEquals("001", dataMapper.toId(salesmanData));
+    assertEquals("001", dataMapper.toId(sellerData));
     assertEquals("002", dataMapper.toId(customerData));
     assertEquals("003", dataMapper.toId(saleData));
   }
@@ -35,7 +36,7 @@ public class DataMapperTest {
 
     assertEquals("01", result.getId());
     assertEquals(3, result.getItems().size());
-    assertEquals("Diana", result.getSalesmanName());
+    assertEquals("Diana", result.getSellerName());
   }
 
   @Test
@@ -56,6 +57,16 @@ public class DataMapperTest {
     assertEquals("3", result.get(2).getId());
     assertEquals(15, result.get(2).getQuantity());
     assertEquals(new Double(100), result.get(2).getPrice());
+  }
+
+  @Test
+  public void shouldMapSeller() {
+    String sellerData = "001ç1234567891234çDianaç3800";
+    Seller result = dataMapper.toSeller(sellerData);
+
+    assertEquals("1234567891234", result.getCpf());
+    assertEquals("Diana", result.getName());
+    assertEquals(new Double(3800), result.getSalary());
   }
 
 }
