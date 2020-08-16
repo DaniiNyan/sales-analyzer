@@ -11,13 +11,8 @@ public class PropertiesHelper {
   private static final String PROPERTY_PATH_TO_DATA = "path.data";
   private static final String PROPERTY_PATH_TO_REPORT = "path.report";
   
-  private static Properties props;
+  private static final Properties props = new Properties();;
   // todo: logger?
-
-  public PropertiesHelper() {
-    props = new Properties();
-    loadProperties();
-  }
   
   public static String getPathToData() {
    return props.getProperty(PROPERTY_PATH_TO_DATA);
@@ -27,12 +22,12 @@ public class PropertiesHelper {
     return props.getProperty(PROPERTY_PATH_TO_REPORT);
   }
 
-  private void loadProperties() {
+  public static void loadProperties() {
     try (InputStream input = new FileInputStream(PATH_TO_PROPERTIES_FILE)) {
-      Properties props = new Properties();
       props.load(input);
     } catch (IOException e) {
       System.out.println("Error: " + e.getMessage());
+      // todo: log message
     }
   }
 }

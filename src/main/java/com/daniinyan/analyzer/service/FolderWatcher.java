@@ -1,5 +1,6 @@
 package com.daniinyan.analyzer.service;
 
+import com.daniinyan.analyzer.dao.FilesDAO;
 import java.io.IOException;
 import java.nio.file.FileSystems;
 import java.nio.file.Path;
@@ -15,10 +16,10 @@ public class FolderWatcher extends Thread {
   private DataService dataService;
   // todo: add logger
 
-
   public FolderWatcher() {
+    PropertiesHelper.loadProperties();
     pathToWatch = PropertiesHelper.getPathToData();
-    dataService = new DataService();
+    dataService = new DataService(new FilesDAO());
   }
 
   @Override
@@ -30,6 +31,7 @@ public class FolderWatcher extends Thread {
         Thread.sleep(100);
       } catch (Exception e) {
         System.out.println("Error: " + e.getMessage());
+        // todo: log message
       }
     }
   }
@@ -54,6 +56,7 @@ public class FolderWatcher extends Thread {
 
     } catch (IOException | InterruptedException e) {
       System.out.println("Error: " + e.getMessage());
+      // todo: log message
     }
   }
 }
