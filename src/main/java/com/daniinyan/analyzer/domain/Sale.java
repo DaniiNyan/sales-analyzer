@@ -37,11 +37,4 @@ public class Sale {
   public void setSalesmanName(String salesmanName) {
     this.salesmanName = salesmanName;
   }
-
-  @Override
-  public String toString() {
-    return "{ sale_id=" + id +
-        ", sale_items=" + items +
-        ", salesman_name=" + salesmanName + " }";
-  }
 }

@@ -29,10 +29,4 @@ public class Item {
     this.price = price;
   }
 
-  @Override
-  public String toString() {
-    return "{ item_id=" + id +
-        ", item_quantity=" + quantity +
-        ", item_price=" + price + " }";
-  }
 }
