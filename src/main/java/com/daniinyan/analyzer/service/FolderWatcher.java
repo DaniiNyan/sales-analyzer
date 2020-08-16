@@ -14,7 +14,6 @@ public class FolderWatcher extends Thread {
   public String pathToWatch;
 
   public FolderWatcher(String pathToWatch) {
-    System.out.println(pathToWatch);
     this.pathToWatch = pathToWatch;
   }
 
