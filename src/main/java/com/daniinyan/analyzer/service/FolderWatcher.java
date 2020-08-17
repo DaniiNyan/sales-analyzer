@@ -1,6 +1,7 @@
 package com.daniinyan.analyzer.service;
 
 import com.daniinyan.analyzer.dao.FilesDAO;
+import com.daniinyan.analyzer.domain.DataNotFoundException;
 import java.io.IOException;
 import java.nio.file.FileSystems;
 import java.nio.file.Path;
@@ -9,12 +10,11 @@ import java.nio.file.StandardWatchEventKinds;
 import java.nio.file.WatchEvent;
 import java.nio.file.WatchKey;
 import java.nio.file.WatchService;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import org.apache.log4j.Logger;
 
 public class FolderWatcher extends Thread {
 
-  private static final Logger logger = LoggerFactory.getLogger(FolderWatcher.class);
+  private final Logger logger = Logger.getLogger(FolderWatcher.class);
 
   private final String pathToWatch;
   private final DataService dataService;
@@ -50,13 +50,14 @@ public class FolderWatcher extends Thread {
 
       WatchKey key;
       while ((key = watchService.take()) != null) {
+        logger.info("Changes detected on data folder.");
         for (WatchEvent<?> event : key.pollEvents()) {
           dataService.updateReport();
         }
         key.reset();
       }
 
-    } catch (IOException | InterruptedException e) {
+    } catch (IOException | InterruptedException | DataNotFoundException e) {
       logger.error(e.getMessage());
     }
   }

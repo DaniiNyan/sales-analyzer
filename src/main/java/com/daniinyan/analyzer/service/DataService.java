@@ -45,7 +45,7 @@ public class DataService {
   }
 
   private void setMostExpensiveSale() {
-    if(countById(SALE_ID) == 0) {
+    if (countById(SALE_ID) == 0) {
       throw new DataNotFoundException("Sales not found.");
     }
 
@@ -61,7 +61,7 @@ public class DataService {
   }
 
   private void setWorstSeller() {
-    if(countById(SELLER_ID) == 0) {
+    if (countById(SELLER_ID) == 0) {
       throw new DataNotFoundException("Sellers not found.");
     }
 
