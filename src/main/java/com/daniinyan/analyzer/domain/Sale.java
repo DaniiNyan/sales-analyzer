@@ -5,7 +5,7 @@ import java.util.List;
 public class Sale {
   private String id;
   private List<Item> items;
-  private String salesmanName;
+  private String sellerName;
 
   public Double getTotal() {
     return items
@@ -30,11 +30,11 @@ public class Sale {
     this.items = items;
   }
 
-  public String getSalesmanName() {
-    return salesmanName;
+  public String getSellerName() {
+    return sellerName;
   }
 
-  public void setSalesmanName(String salesmanName) {
-    this.salesmanName = salesmanName;
+  public void setSellerName(String sellerName) {
+    this.sellerName = sellerName;
   }
 }
