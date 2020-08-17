@@ -7,9 +7,9 @@
 
 #### Description
 Build a data analyzer system which produces a report based on imported batches
-of files with data from sales. There are 3 data types inside imported files. It's
-possible to distinguish them by the ID from the first column of each line.
-The delimiter "ç" is responsible for separate each column.
+of files with sales data. There are 3 data types inside the imported files. It's
+possible to distinguish them by the first column's ID of each line.
+The letter "ç" must separate a column from another.
 
 #### Data Example
 
@@ -50,21 +50,19 @@ and write the final report in `HOMEPATH/data/out`. The report file must have the
 - The system must continuously run and catch all new files when inserted in default folder;
 - You can use any external library if necessary; 
 
-
 ## Architecture
 `FolderWatcher` is responsible for listen to the default folder and call 
-`DataService` whenever it has any updates. `DataService` analyze all data, 
+`DataService` whenever it has any updates. `DataService` analyzes all data, 
 it uses `FileDAO` to read all files and write the final report. `DataMapper` is 
 used to map lines into objects to be analyzed.  
 
 It's possible to define the default folder to read files and write the report 
 through the `application.properties` file. The `PropertiesHelper` is responsible 
-for manage the values set in `application.properties` globally inside the system, 
+for globally manage the values set in `application.properties` inside the system, 
 granting to use the same value everywhere it is needed.  
 
-Since this is a data analyzer, I'm assuming all files received follow the correct data 
-pattern, so the system won't accept wrong files. Only delimiter can be changed 
-since any letter put after the data ID will be considered as a delimiter.  
+Since this is a data analyzer, I'm assuming that all files received are following 
+the correct data pattern, so the system won't accept wrong files.
 
 ## Getting Started
 To run this application you will need [Java 8](https://www.oracle.com/br/java/technologies/javase/javase-jdk8-downloads.html).
