@@ -58,7 +58,7 @@ used to map lines into objects to be analyzed.
 
 It's possible to define the default folder to read files and write the report 
 through the `application.properties` file. The `PropertiesHelper` is responsible 
-for globally manage the values set, granting to use the same value everywhere it is needed.  
+for globally manage the values set in `application.properties`, granting to use the same value everywhere it is needed.  
 
 Since this is a data analyzer, I'm assuming that all files received are following 
 the correct data pattern, so the system won't accept wrong files.
