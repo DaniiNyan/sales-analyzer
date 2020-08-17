@@ -1,9 +1,7 @@
-# Core Challenge
-
-### Summary:
-- Challenge
-- Architecture
-- Getting Started
+# Sales Analyzer
+- [Challenge](https://github.com/DaniiNyan/sales-analyzer#challenge)
+- [Architecture](https://github.com/DaniiNyan/sales-analyzer#architecture)
+- [Getting Started](https://github.com/DaniiNyan/sales-analyzer#getting-started)
 
 ## Challenge
 
