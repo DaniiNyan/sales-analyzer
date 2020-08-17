@@ -9,7 +9,7 @@
 Build a data analyzer system which produces a report based on imported batches
 of files with sales data. There are 3 data types inside the imported files. It's
 possible to distinguish them by the first column's ID of each line.
-The letter "ç" must separate a column from another.
+The letter "ç" is used as the column's delimiter.
 
 #### Data Example
 
@@ -58,8 +58,7 @@ used to map lines into objects to be analyzed.
 
 It's possible to define the default folder to read files and write the report 
 through the `application.properties` file. The `PropertiesHelper` is responsible 
-for globally manage the values set in `application.properties` inside the system, 
-granting to use the same value everywhere it is needed.  
+for globally manage the values set, granting to use the same value everywhere it is needed.  
 
 Since this is a data analyzer, I'm assuming that all files received are following 
 the correct data pattern, so the system won't accept wrong files.
