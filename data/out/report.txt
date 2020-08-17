@@ -1,0 +1,4 @@
+total_customers=4
+total_sellers=6
+most_expensive_sale_id=02
+worst_seller_name=Beatriz
