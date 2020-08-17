@@ -1,6 +1,5 @@
 package com.daniinyan.analyzer.service;
 
-import static org.mockito.ArgumentMatchers.anyList;
 import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.Mockito.doNothing;
 import static org.mockito.Mockito.mock;
@@ -8,6 +7,7 @@ import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
 import com.daniinyan.analyzer.dao.FilesDAO;
+import com.daniinyan.analyzer.domain.DataNotFoundException;
 import java.util.Arrays;
 import java.util.List;
 import org.junit.Before;
@@ -49,6 +49,31 @@ public class DataServiceTest {
         .updateReportField(WORST_SELLER_FIELD, "Beatriz");
   }
 
+  @Test(expected = DataNotFoundException.class)
+  public void shouldThrowExceptionWhenNoSalesFound() {
+    List<String> dataWithoutSale = Arrays.asList(
+        "001ç23176086083çDianaç3800",
+        "001ç39718995013çMariaç4000.99",
+        "001ç28107757025çBeatrizç3475.50",
+        "002ç78538206000167çJose da SilvaçRural",
+        "002ç93797762000141çEduardoPereiraçHuman Resources"
+    );
+    when(filesDAO.getData()).thenReturn(dataWithoutSale);
+    dataService.updateReport();
+  }
+
+  @Test(expected = DataNotFoundException.class)
+  public void shouldThrowExceptionWhenNoSellerFound() {
+    List<String> dataWithoutSeller = Arrays.asList(
+        "002ç78538206000167çJose da SilvaçRural",
+        "002ç93797762000141çEduardoPereiraçHuman Resources",
+        "003ç01ç[1-10-2.5,2-10-1.50,3-15-100]çDiana",
+        "003ç02ç[1-20-2.5,2-10-1.50,3-50-100]çMaria",
+        "003ç03ç[1-30-2.5,2-10-1.50,3-10-100]çBeatriz"
+    );
+    when(filesDAO.getData()).thenReturn(dataWithoutSeller);
+    dataService.updateReport();
+  }
 
   private List<String> getSampleData() {
     return Arrays.asList(
