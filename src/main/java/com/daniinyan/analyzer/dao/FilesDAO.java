@@ -10,11 +10,13 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 public class FilesDAO {
 
+  private static final Logger logger = LoggerFactory.getLogger(FilesDAO.class);
   private final String pathToData = PropertiesHelper.getPathToData();
-  // todo: logger
 
   public List<String> getData() {
     List<String> dataFilesPaths = getDataFilesPaths();
@@ -34,8 +36,7 @@ public class FilesDAO {
       Files.createFile(reportPath);
       Files.write(reportPath, reportLines, StandardOpenOption.APPEND);
     } catch (IOException e) {
-      System.out.println(e.getMessage());
-      // todo: log message
+      logger.error(e.getMessage());
     }
   }
 
@@ -54,10 +55,8 @@ public class FilesDAO {
       dataFiles = paths
           .map(Path::toString)
           .collect(Collectors.toList());
-
     } catch (IOException e) {
-      System.out.println(e.getMessage());
-      // todo: log message
+      logger.error(e.getMessage());
     }
     return dataFiles;
   }
@@ -67,8 +66,7 @@ public class FilesDAO {
     try {
       fileLines = Files.readAllLines(Paths.get(pathToFile));
     } catch (IOException e) {
-      System.out.println(e.getMessage());
-      // todo: log message
+      logger.error(e.getMessage());
     }
     return fileLines;
   }

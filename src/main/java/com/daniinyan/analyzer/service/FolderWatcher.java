@@ -9,12 +9,15 @@ import java.nio.file.StandardWatchEventKinds;
 import java.nio.file.WatchEvent;
 import java.nio.file.WatchKey;
 import java.nio.file.WatchService;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 public class FolderWatcher extends Thread {
 
-  private String pathToWatch;
-  private DataService dataService;
-  // todo: add logger
+  private static final Logger logger = LoggerFactory.getLogger(FolderWatcher.class);
+
+  private final String pathToWatch;
+  private final DataService dataService;
 
   public FolderWatcher() {
     PropertiesHelper.loadProperties();
@@ -30,8 +33,7 @@ public class FolderWatcher extends Thread {
       try {
         Thread.sleep(100);
       } catch (Exception e) {
-        System.out.println("Error: " + e.getMessage());
-        // todo: log message
+        logger.error(e.getMessage());
       }
     }
   }
@@ -55,8 +57,7 @@ public class FolderWatcher extends Thread {
       }
 
     } catch (IOException | InterruptedException e) {
-      System.out.println("Error: " + e.getMessage());
-      // todo: log message
+      logger.error(e.getMessage());
     }
   }
 }

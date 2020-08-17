@@ -19,7 +19,6 @@ public class DataService {
 
   private final DataMapper dataMapper;
   private final FilesDAO filesDAO;
-  // todo: add logger?
 
   public DataService(FilesDAO filesDAO) {
     dataMapper = new DataMapper();
