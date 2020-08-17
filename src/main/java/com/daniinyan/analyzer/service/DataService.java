@@ -45,14 +45,6 @@ public class DataService {
     updateReportField(fieldName, totalCount);
   }
 
-  private long countById(String dataId) {
-    return filesDAO
-        .getData()
-        .stream()
-        .filter(data -> dataMapper.toId(data).equals(dataId))
-        .count();
-  }
-
   private void setMostExpensiveSale() {
     if(countById(SALE_ID) == 0) {
       throw new DataNotFoundException("Sales not found.");
@@ -98,5 +90,13 @@ public class DataService {
 
   private void updateReportField(String fieldName, String value) {
     filesDAO.updateReportField(fieldName, value);
+  }
+
+  private long countById(String dataId) {
+    return filesDAO
+        .getData()
+        .stream()
+        .filter(data -> dataMapper.toId(data).equals(dataId))
+        .count();
   }
 }
