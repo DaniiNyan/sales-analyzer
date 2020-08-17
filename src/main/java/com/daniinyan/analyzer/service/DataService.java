@@ -1,6 +1,7 @@
 package com.daniinyan.analyzer.service;
 
 import com.daniinyan.analyzer.dao.FilesDAO;
+import com.daniinyan.analyzer.domain.DataNotFoundException;
 import com.daniinyan.analyzer.domain.Sale;
 import com.daniinyan.analyzer.domain.Seller;
 import java.util.Arrays;
@@ -53,6 +54,10 @@ public class DataService {
   }
 
   private void setMostExpensiveSale() {
+    if(countById(SALE_ID) == 0) {
+      throw new DataNotFoundException("Sales not found.");
+    }
+
     Sale mostExpensiveSale = filesDAO
         .getData()
         .stream()
@@ -65,6 +70,10 @@ public class DataService {
   }
 
   private void setWorstSeller() {
+    if(countById(SELLER_ID) == 0) {
+      throw new DataNotFoundException("Sellers not found.");
+    }
+
     Seller worstSeller = filesDAO
         .getData()
         .stream()
